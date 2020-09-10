@@ -1,4 +1,6 @@
 <?php
+namespace OAuth2UsernamePasswordFlow;
+
 define("SDS_DEALER_NAME", "GoGreen Solar");
 define("SDS_API_END_POINT_UR", "https://login.salesforce.com/services/oauth2/token");
 define("SDS_LEAD_API_END_POINT_URL", "https://sunpower.my.salesforce.com/services/apexrest/maxfitdesign/");
