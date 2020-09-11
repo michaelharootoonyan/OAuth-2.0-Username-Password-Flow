@@ -15,6 +15,7 @@
  * @link      https://github.com/michaelharootoonyan/OAuth-2.0-Username-Password-Flow
  */
 namespace OAuth2UsernamePasswordFlow;
+
 /**
  * SDSRestEndPoint
  *
@@ -34,7 +35,7 @@ class SDSRestEndPoint
 {
     /**
      * OAuth2Password url string that grants us an access token.
-     * 
+     *
      * @var string postfields
      */
     private $postfields = null;
@@ -44,7 +45,7 @@ class SDSRestEndPoint
      *
      * @var string payload
      */
-    public  $payload    = null;
+    public $payload    = null;
 
     /**
      * Handles the entire process once a user submits post data to the rest
