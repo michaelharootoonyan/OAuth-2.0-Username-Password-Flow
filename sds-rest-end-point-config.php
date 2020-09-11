@@ -9,3 +9,4 @@ define("SDS_CLIENT_ID", "xxx");
 define("SDS_CLIENT_SECRET", "xxx");
 define("SDS_USERNAME", "xxx@email.com");
 define("SDS_PASSWORD", "xxx");
+define("HOMEPAGE_URL", "http://hiregogreen.com/");
