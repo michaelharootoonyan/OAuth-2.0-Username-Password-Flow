@@ -3,5 +3,5 @@
 
 I wrote a REST endpoint in PHP and it is used in the form on the front-end in order to send over lead information and interact with the Salesforce Application.  Tested in salesforce sandbox before moving to the salesforce live environment.
 
-(GoGreen Solar)[http://hiregogreen.com/]
+[GoGreen Solar](http://hiregogreen.com/)
 
