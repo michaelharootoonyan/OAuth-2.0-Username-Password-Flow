@@ -11,7 +11,7 @@
  * @package   SDSDealer
  * @author    Michael Harootoonyan <michaelharootoonyan@gmail.com>
  * @copyright 2020 Michael Harootoonyan
- * @license   https://github.com/michaelharootoonyan/blob/master/license.txt MIT
+ * @license   https://github.com/michaelharootoonyan/blob/master/license.txt BSD
  * @link      https://github.com/michaelharootoonyan/OAuth-2.0-Username-Password-Flow
  */
 namespace OAuth2UsernamePasswordFlow;
@@ -28,7 +28,7 @@ namespace OAuth2UsernamePasswordFlow;
  * @package   SDSDealer
  * @author    Michael Harootoonyan <michaelharootoonyan@gmail.com>
  * @copyright 2020 Michael Harootoonyan
- * @license   https://github.com/michaelharootoonyan/blob/master/license.txt MIT
+ * @license   https://github.com/michaelharootoonyan/blob/master/license.txt BSD
  * @link      https://github.com/michaelharootoonyan/OAuth-2.0-Username-Password-Flow
  */
 class SDSRestEndPoint
