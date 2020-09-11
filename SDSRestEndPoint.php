@@ -3,7 +3,7 @@ namespace OAuth2UsernamePasswordFlow;
 
 class SDSRestEndPoint
 {
-    public $postfields = null;
+    private $postfields = null;
     public $payload    = null;
 
     public function __construct()
@@ -14,6 +14,9 @@ class SDSRestEndPoint
         ."&client_secret=".SDS_CLIENT_SECRET
         ."&username=".SDS_USERNAME
         ."&password=".urlencode(SDS_PASSWORD);
+
+        // sanitize user $_POST[] fields if they haven't filled this out correctly don't let them proceed.
+        $this->userSanitation();
 
         // pass the post fields the the SDS endpoint
         $ch = curl_init();
@@ -41,17 +44,19 @@ class SDSRestEndPoint
         return $json_arr->accessToken;
     }
 
-    private function pushPostfieldsData($accessToken)
-    {
-        // we are now authenticated at this point time for the 2nd part of the flow
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, SDS_LEAD_API_END_POINT_URL);
-
+    private function userSanitation(){
         $postalCode = $_POST['postalCode'];
         if (!(strlen($postalCode) == 5)) {
             header("Location: http://hiregogreen.com/");
             exit();
         }
+    }
+
+    private function pushPostfieldsData($accessToken)
+    {
+        // we are now authenticated at this point time for the 2nd part of the flow
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, SDS_LEAD_API_END_POINT_URL);
 
         // form payload
         $payload = '{"street": "'.$_POST['street'].'",
