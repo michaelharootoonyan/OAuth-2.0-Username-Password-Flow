@@ -20,7 +20,7 @@ namespace OAuth2UsernamePasswordFlow;
 class SDSRestEndPoint
 {
     private $_postfields = null;
-    public $payload    = null;
+    public $payload      = null;
 
     /**
      * Handles the entire process once a user submits post data to the rest 
