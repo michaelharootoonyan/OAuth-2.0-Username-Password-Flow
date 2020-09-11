@@ -44,7 +44,8 @@ class SDSRestEndPoint
         return $json_arr->accessToken;
     }
 
-    private function userSanitation(){
+    private function userSanitation()
+    {
         $postalCode = $_POST['postalCode'];
         if (!(strlen($postalCode) == 5)) {
             header("Location: http://hiregogreen.com/");
