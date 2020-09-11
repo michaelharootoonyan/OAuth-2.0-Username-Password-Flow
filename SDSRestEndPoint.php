@@ -7,25 +7,42 @@
  *
  * PHP version 5
  *
- * @category  PHP
+ * @category  Class
  * @package   SDSDealer
  * @author    Michael Harootoonyan <michaelharootoonyan@gmail.com>
  * @copyright 2020 Michael Harootoonyan
- * @license   https://github.com/michaelharootoonyan/blob/master/license.txt MIT License
+ * @license   https://github.com/michaelharootoonyan/blob/master/license.txt MIT
  * @link      https://github.com/michaelharootoonyan/OAuth-2.0-Username-Password-Flow
  */
 namespace OAuth2UsernamePasswordFlow;
-
+/**
+ * SDSRestEndPoint
+ *
+ * Using the OAuth 2.0 Username-Password Flow in order to pass lead information
+ * to the SDSDealer Salesforce Application.
+ *
+ * PHP version 5
+ *
+ * @category  Class
+ * @package   SDSDealer
+ * @author    Michael Harootoonyan <michaelharootoonyan@gmail.com>
+ * @copyright 2020 Michael Harootoonyan
+ * @license   https://github.com/michaelharootoonyan/blob/master/license.txt MIT
+ * @link      https://github.com/michaelharootoonyan/OAuth-2.0-Username-Password-Flow
+ */
 class SDSRestEndPoint
 {
     /**
-     * @var string postfields is the OAuth2Password url string that grants us
-     * an access token.
+     * OAuth2Password url string that grants us an access token.
+     * 
+     * @var string postfields
      */
     private $postfields = null;
 
     /**
-     * @var string JSON string of what is returned after we pass the postfields.
+     * Returned data needed for 2nd step of the OAuth2 User Password Flow.
+     *
+     * @var string payload
      */
     public  $payload    = null;
 
