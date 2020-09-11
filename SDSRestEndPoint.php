@@ -1,9 +1,9 @@
 <?php
 /**
  * SDSRestEndPoint
- * 
+ *
  * Using the OAuth 2.0 Username-Password Flow in order to pass lead information
- * to the SDSDealer Salesforce Application. 
+ * to the SDSDealer Salesforce Application.
  *
  * PHP version 5
  *
@@ -11,35 +11,42 @@
  * @package   SDSDealer
  * @author    Michael Harootoonyan <michaelharootoonyan@gmail.com>
  * @copyright 2020 Michael Harootoonyan
- * @license   https://github.com/michaelharootoonyan/blob/master/licence.txt 
- * BSD Licence
+ * @license   https://github.com/michaelharootoonyan/blob/master/license.txt MIT License
  * @link      https://github.com/michaelharootoonyan/OAuth-2.0-Username-Password-Flow
  */
 namespace OAuth2UsernamePasswordFlow;
 
 class SDSRestEndPoint
 {
-    private $_postfields = null;
-    public $payload      = null;
+    /**
+     * @var string postfields is the OAuth2Password url string that grants us
+     * an access token.
+     */
+    private $postfields = null;
 
     /**
-     * Handles the entire process once a user submits post data to the rest 
+     * @var string JSON string of what is returned after we pass the postfields.
+     */
+    public  $payload    = null;
+
+    /**
+     * Handles the entire process once a user submits post data to the rest
      * endpoint.
-     * 
+     *
      * @return void
      */
     public function __construct()
     {
         include_once "sds-rest-end-point-config.php";
-        $this->_postfields = "grant_type=" . SDS_GRANT_TYPE
+        $this->postfields = "grant_type=" . SDS_GRANT_TYPE
         . "&client_id=" . SDS_CLIENT_ID
         . "&client_secret=" . SDS_CLIENT_SECRET
         . "&username=" . SDS_USERNAME
         . "&password=" . urlencode(SDS_PASSWORD);
 
-        // sanitize user $_POST[] fields if they haven't filled this out 
+        // sanitize user $_POST[] fields if they haven't filled this out
         // correctly don't let them proceed.
-        $this->_userSanitation();
+        $this->userSanitation();
 
         // pass the post fields the the SDS endpoint
         $ch = curl_init();
@@ -47,8 +54,8 @@ class SDSRestEndPoint
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $this->postfields);
         curl_setopt(
-            $ch, 
-            CURLOPT_HTTPHEADER, 
+            $ch,
+            CURLOPT_HTTPHEADER,
             array('Content-Type: application/x-www-form-urlencoded')
         );
 
@@ -60,29 +67,29 @@ class SDSRestEndPoint
 
         curl_close($ch);
 
-        // get the access token and push the form fields data to the endpoint..
-        $accessToken = $this->_getAccessToken();
-        $this->_pushPostfieldsData($accessToken);
+        // get the access token and push the form fields data to the endpoint
+        $accessToken = $this->getAccessToken();
+        $this->pushPostfieldsData($accessToken);
     }
 
     /**
      * Gets the access token from the returned payload from the OAuth2 Flow.
-     * 
+     *
      * @return string
      */
-    private function _getAccessToken()
+    private function getAccessToken()
     {
         $jsonArr = json_decode($this->payload);
         return $jsonArr->accessToken;
     }
 
     /**
-     * Checks to see if user has passed valid input values.  Redirects them to 
+     * Checks to see if user has passed valid input values.  Redirects them to
      * the homepage.
-     * 
+     *
      * @return void
      */
-    private function _userSanitation()
+    private function userSanitation()
     {
         $postalCode = $_POST['postalCode'];
         if (!(strlen($postalCode) == 5)) {
@@ -92,19 +99,19 @@ class SDSRestEndPoint
 
     /**
      * Passes the lead information to the SDSDealer Salesforce Application.
-     * 
+     *
      * @param string $accessToken the access token provided by the OAuth2 Flow
-     * 
+     *
      * @return void
      */
-    private function _pushPostfieldsData($accessToken)
+    private function pushPostfieldsData($accessToken)
     {
         // now authenticated at this point time for the 2nd part of the flow
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, SDS_LEAD_API_END_POINT_URL);
 
         // form payload
-        $payload = '{"street": "' . $_POST['street'] . '",
+        $userPayload = '{"street": "' . $_POST['street'] . '",
             "city": "' . $_POST['city'] . '",
             "state": "' . $_POST['state'] . '",
             "postalCode": "' . $_POST['postalCode'] . '",
@@ -112,7 +119,7 @@ class SDSRestEndPoint
             }';
 
         // attach encoded JSON string to the POST fields
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $userPayload);
 
 
         //set the content type to application/json
@@ -120,7 +127,7 @@ class SDSRestEndPoint
             $ch,
             CURLOPT_HTTPHEADER,
             array(
-                'Content-Type:application/json', 
+                'Content-Type:application/json',
                 'authorization: Bearer ' . $accessToken)
         );
 
