@@ -9,11 +9,11 @@ class SDSRestEndPoint
     public function __construct()
     {
         require_once "sds-rest-end-point-config.php";
-        $this->postfields = "grant_type=".SDS_GRANT_TYPE
-        ."&client_id=".SDS_CLIENT_ID
-        ."&client_secret=".SDS_CLIENT_SECRET
-        ."&username=".SDS_USERNAME
-        ."&password=".urlencode(SDS_PASSWORD);
+        $this->postfields = "grant_type=" . SDS_GRANT_TYPE
+        . "&client_id=" . SDS_CLIENT_ID
+        . "&client_secret=" . SDS_CLIENT_SECRET
+        . "&username=" . SDS_USERNAME
+        . "&password=" . urlencode(SDS_PASSWORD);
 
         // sanitize user $_POST[] fields if they haven't filled this out correctly don't let them proceed.
         $this->userSanitation();
@@ -60,11 +60,11 @@ class SDSRestEndPoint
         curl_setopt($ch, CURLOPT_URL, SDS_LEAD_API_END_POINT_URL);
 
         // form payload
-        $payload = '{"street": "'.$_POST['street'].'",
-            "city": "'.$_POST['city'].'",
-            "state": "'.$_POST['state'].'",
-            "postalCode": "'.$_POST['postalCode'].'",
-            "dealerName": "'.SDS_DEALER_NAME.'"
+        $payload = '{"street": "' . $_POST['street'] . '",
+            "city": "' . $_POST['city'] . '",
+            "state": "' . $_POST['state'] . '",
+            "postalCode": "' . $_POST['postalCode'] . '",
+            "dealerName": "' . SDS_DEALER_NAME . '"
             }';
 
         //attach encoded JSON string to the POST fields
@@ -75,7 +75,7 @@ class SDSRestEndPoint
         curl_setopt(
             $ch,
             CURLOPT_HTTPHEADER,
-            array('Content-Type:application/json', 'authorization: Bearer '.$accessToken)
+            array('Content-Type:application/json', 'authorization: Bearer ' . $accessToken)
         );
 
         //return response instead of outputting
